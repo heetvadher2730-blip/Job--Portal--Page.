@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Portal Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#101B33;
+    --navy-2:#16233F;
+    --blue:#2E6FF2;
+    --blue-light:#5B8DFF;
+    --amber:#F5A623;
+    --ink:#1B2436;
+    --muted:#8A93A8;
+    --line:rgba(255,255,255,0.08);
+    --line-lt:#E7EBF3;
+    --bg:#F7F9FC;
+    --card:#FFFFFF;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:'Inter', sans-serif; background:var(--bg); color:var(--ink); }
+  h1,h2,h3,.brand{ font-family:'Poppins', sans-serif; }
+  a{ text-decoration:none; color:inherit; }
+  img{ max-width:100%; display:block; }
+  .wrap{ max-width:1200px; margin:0 auto; padding:0 28px; }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{ outline:2px solid var(--blue-light); outline-offset:3px; }
+
+  header{ background:linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%); position:sticky; top:0; z-index:50; border-bottom:1px solid var(--line); }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 0; gap:24px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:1.2rem; color:#fff; white-space:nowrap; }
+  .brand-icon{ width:36px; height:36px; border-radius:9px; background:linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(46,111,242,0.35); }
+  .brand span{ color:var(--blue-light); }
+  .nav-links{ display:flex; gap:34px; font-size:0.94rem; font-weight:500; color:#C6CCDA; }
+  .nav-links a{ position:relative; padding:6px 0; transition:color 0.15s; }
+  .nav-links a:hover{ color:#fff; }
+  .nav-links a::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--blue-light); transform:scaleX(0); transition:transform 0.2s; }
+  .nav-links a:hover::after{ transform:scaleX(1); }
+  .nav-actions{ display:flex; align-items:center; gap:14px; }
+  .btn-ghost{ color:#fff; font-size:0.9rem; font-weight:600; padding:9px 16px; border:1px solid var(--line); border-radius:8px; transition:border-color 0.15s, background 0.15s; }
+  .btn-ghost:hover{ border-color:var(--blue-light); background:rgba(91,141,255,0.08); }
+  .btn-solid{ background:var(--amber); color:var(--navy); font-size:0.9rem; font-weight:700; padding:10px 20px; border-radius:8px; transition:filter 0.15s; }
+  .btn-solid:hover{ filter:brightness(1.08); }
+  .burger{ display:none; flex-direction:column; gap:5px; cursor:pointer; }
+  .burger span{ width:24px; height:2px; background:#fff; display:block; }
+  @media(max-width:920px){ .nav-links{ display:none; } .btn-ghost{ display:none; } .burger{ display:flex; } }
+
+  .hero{
+    position:relative; padding:70px 0 110px; text-align:center; overflow:hidden;
+    background-color:var(--navy);
+    background-image:
+      linear-gradient(180deg, rgba(16,27,51,0.88) 0%, rgba(16,27,51,0.97) 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='700' viewBox='0 0 1600 700'%3E%3Crect width='1600' height='700' fill='%2316233F'/%3E%3Cg fill='%230E1730'%3E%3Crect x='40' y='420' width='90' height='280'/%3E%3Crect x='150' y='360' width='70' height='340'/%3E%3Crect x='240' y='460' width='110' height='240'/%3E%3Crect x='370' y='300' width='80' height='400'/%3E%3Crect x='470' y='400' width='60' height='300'/%3E%3Crect x='550' y='250' width='100' height='450'/%3E%3Crect x='670' y='380' width='75' height='320'/%3E%3Crect x='760' y='330' width='95' height='370'/%3E%3Crect x='875' y='430' width='65' height='270'/%3E%3Crect x='960' y='280' width='110' height='420'/%3E%3Crect x='1090' y='390' width='80' height='310'/%3E%3Crect x='1190' y='340' width='70' height='360'/%3E%3Crect x='1280' y='440' width='100' height='260'/%3E%3Crect x='1400' y='370' width='85' height='330'/%3E%3Crect x='1500' y='430' width='70' height='270'/%3E%3C/g%3E%3Cg stroke='%232E6FF2' stroke-opacity='0.35' stroke-width='1'%3E%3Cline x1='60' y1='450' x2='300' y2='320'/%3E%3Cline x1='300' y1='320' x2='600' y2='260'/%3E%3Cline x1='600' y1='260' x2='980' y2='300'/%3E%3Cline x1='980' y1='300' x2='1300' y2='240'/%3E%3Cline x1='1300' y1='240' x2='1540' y2='340'/%3E%3C/g%3E%3Cg fill='%235B8DFF'%3E%3Ccircle cx='60' cy='450' r='4'/%3E%3Ccircle cx='300' cy='320' r='4'/%3E%3Ccircle cx='600' cy='260' r='5'/%3E%3Ccircle cx='980' cy='300' r='4'/%3E%3Ccircle cx='1300' cy='240' r='5'/%3E%3Ccircle cx='1540' cy='340' r='4'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:cover; background-position:center bottom; background-repeat:no-repeat;
+  }
+  .eyebrow{ display:inline-block; font-size:0.8rem; font-weight:600; color:var(--blue-light); background:rgba(91,141,255,0.12); padding:6px 14px; border-radius:999px; margin-bottom:18px; }
+  .hero h1{ font-size:clamp(2rem, 4vw, 2.9rem); font-weight:800; color:#fff; margin-bottom:14px; }
+  .hero h1 span{ color:var(--amber); }
+  .hero p{ color:#9AA3B5; max-width:520px; margin:0 auto 34px; font-size:1.02rem; }
+
+  .search-card{
+    background:var(--card); border-radius:14px; padding:14px; max-width:760px; margin:0 auto;
+    display:flex; gap:10px; box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  }
+  .search-card input, .search-card select{
+    flex:1; border:1px solid var(--line-lt); border-radius:9px; padding:12px 14px; font-size:0.92rem; font-family:'Inter'; color:var(--ink);
+  }
+  .search-card select{ flex:0 0 160px; }
+  .search-card button{
+    background:var(--blue); color:#fff; border:none; font-weight:600; font-size:0.92rem; padding:12px 24px; border-radius:9px; cursor:pointer; transition:background 0.15s;
+  }
+  .search-card button:hover{ background:#255DE0; }
+  @media(max-width:680px){ .search-card{ flex-wrap:wrap; } .search-card select{ flex:1 1 100%; } .search-card button{ flex:1 1 100%; } }
+
+  .popular{ margin-top:20px; font-size:0.85rem; color:#8A93A8; }
+  .popular a{ color:#C6CCDA; margin-left:8px; }
+  .popular a:hover{ color:var(--amber); }
+
+  .categories{ padding:56px 0 8px; }
+  .section-head{ text-align:center; margin-bottom:34px; }
+  .section-head h2{ font-size:1.6rem; font-weight:700; margin-bottom:8px; }
+  .section-head p{ color:var(--muted); font-size:0.92rem; }
+
+  .cat-grid{ display:grid; grid-template-columns:repeat(6,1fr); gap:16px; }
+  @media(max-width:900px){ .cat-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media(max-width:520px){ .cat-grid{ grid-template-columns:repeat(2,1fr); } }
+  .cat-card{
+    background:var(--card); border:1px solid var(--line-lt); border-radius:12px; padding:20px 14px;
+    text-align:center; transition:transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+  .cat-card:hover{ transform:translateY(-3px); border-color:var(--blue-light); box-shadow:0 12px 24px rgba(46,111,242,0.1); }
+  .cat-icon{ font-size:1.5rem; margin-bottom:10px; }
+  .cat-card h4{ font-size:0.88rem; font-weight:600; margin-bottom:4px; }
+  .cat-card span{ font-size:0.76rem; color:var(--muted); }
+
+  .stats{ padding:50px 0; }
+  .stats-grid{
+    background:var(--navy); border-radius:18px; display:grid; grid-template-columns:repeat(4,1fr);
+    padding:36px 20px;
+  }
+  .stats-grid div{ text-align:center; border-right:1px solid var(--line); }
+  .stats-grid div:last-child{ border-right:none; }
+  .stats-grid strong{ display:block; font-family:'Poppins'; font-size:1.9rem; color:var(--amber); }
+  .stats-grid span{ color:#9AA3B5; font-size:0.82rem; }
+  @media(max-width:700px){ .stats-grid{ grid-template-columns:1fr 1fr; row-gap:24px; } .stats-grid div:nth-child(2){ border-right:none; } .stats-grid div{ border-bottom:1px solid var(--line); padding-bottom:20px; } }
+
+  .how{ padding:60px 0; }
+  .how-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  @media(max-width:900px){ .how-grid{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:520px){ .how-grid{ grid-template-columns:1fr; } }
+  .how-card{ text-align:center; padding:26px 18px; }
+  .how-num{
+    width:52px; height:52px; border-radius:50%; margin:0 auto 16px; display:flex; align-items:center; justify-content:center;
+    background:rgba(46,111,242,0.08); color:var(--blue); font-family:'Poppins'; font-weight:700; font-size:1.2rem;
+  }
+  .how-card h4{ font-size:1rem; margin-bottom:8px; }
+  .how-card p{ font-size:0.85rem; color:var(--muted); }
+
+  .companies{ padding:50px 0; }
+  .company-row{ display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .company-chip{
+    flex:1; min-width:150px; background:var(--card); border:1px solid var(--line-lt); border-radius:12px;
+    padding:20px; text-align:center; font-family:'Poppins'; font-weight:700; color:var(--muted);
+    transition:color 0.15s, border-color 0.15s;
+  }
+  .company-chip:hover{ color:var(--blue); border-color:var(--blue-light); }
+
+  .testimonials{ padding:60px 0; background:var(--card); border-top:1px solid var(--line-lt); border-bottom:1px solid var(--line-lt); }
+  .test-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media(max-width:860px){ .test-grid{ grid-template-columns:1fr; } }
+  .test-card{ background:var(--bg); border:1px solid var(--line-lt); border-radius:14px; padding:24px; }
+  .test-stars{ color:var(--amber); font-size:0.9rem; margin-bottom:14px; }
+  .test-card p{ font-size:0.9rem; color:var(--ink); line-height:1.6; margin-bottom:20px; }
+  .test-person{ display:flex; align-items:center; gap:12px; }
+  .test-avatar{ width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Poppins'; font-weight:700; font-size:0.85rem; flex:none; }
+  .test-person h5{ font-size:0.88rem; }
+  .test-person span{ font-size:0.78rem; color:var(--muted); }
+
+  .newsletter{ padding:60px 0; text-align:center; }
+  .newsletter h2{ font-size:1.5rem; margin-bottom:10px; }
+  .newsletter p{ color:var(--muted); font-size:0.92rem; margin-bottom:24px; }
+  .newsletter-form{ display:flex; gap:10px; max-width:420px; margin:0 auto; }
+  .newsletter-form input{ flex:1; border:1px solid var(--line-lt); border-radius:9px; padding:12px 14px; font-size:0.9rem; }
+  .newsletter-form button{ background:var(--blue); color:#fff; border:none; font-weight:600; padding:12px 22px; border-radius:9px; cursor:pointer; font-size:0.88rem; transition:background 0.15s; }
+  .newsletter-form button:hover{ background:#255DE0; }
+  @media(max-width:480px){ .newsletter-form{ flex-direction:column; } }
+
+  .body-section{ padding:70px 0; }
+  .body-grid{ display:grid; grid-template-columns:260px 1fr; gap:32px; align-items:start; }
+  @media(max-width:860px){ .body-grid{ grid-template-columns:1fr; } }
+
+  .filters{ background:var(--card); border:1px solid var(--line-lt); border-radius:14px; padding:24px; position:sticky; top:96px; }
+  .filters h3{ font-size:1rem; margin-bottom:18px; }
+  .filter-group{ margin-bottom:22px; }
+  .filter-group h4{ font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:12px; }
+  .filter-group label{ display:flex; align-items:center; gap:9px; font-size:0.88rem; margin-bottom:10px; color:var(--ink); cursor:pointer; }
+  .filter-group input[type=checkbox]{ accent-color:var(--blue); width:15px; height:15px; }
+  .clear-btn{ font-size:0.82rem; color:var(--blue); font-weight:600; }
+
+  .list-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px; }
+  .list-head h2{ font-size:1.3rem; }
+  .list-head span{ color:var(--muted); font-size:0.88rem; }
+  .sort-select{ border:1px solid var(--line-lt); border-radius:8px; padding:8px 12px; font-size:0.85rem; background:var(--card); color:var(--ink); }
+
+  .job-list{ display:flex; flex-direction:column; gap:14px; }
+  .job-row{
+    background:var(--card); border:1px solid var(--line-lt); border-radius:14px; padding:20px;
+    display:flex; gap:18px; align-items:flex-start; transition:border-color 0.15s, box-shadow 0.15s;
+  }
+  .job-row:hover{ border-color:var(--blue-light); box-shadow:0 10px 28px rgba(16,27,51,0.08); }
+  .job-logo{
+    width:52px; height:52px; border-radius:10px; flex:none;
+    background:linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+    display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-family:'Poppins';
+  }
+  .job-row .info{ flex:1; min-width:0; }
+  .job-row .top{ display:flex; justify-content:space-between; gap:10px; align-items:flex-start; flex-wrap:wrap; }
+  .job-row h3{ font-size:1.05rem; margin-bottom:3px; }
+  .job-row .co{ color:var(--muted); font-size:0.86rem; margin-bottom:12px; }
+  .save-btn{ font-size:1.1rem; color:var(--line-lt); cursor:pointer; flex:none; }
+  .save-btn:hover{ color:var(--amber); }
+  .job-meta{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .job-meta span{ font-size:0.74rem; font-weight:600; padding:5px 10px; border-radius:999px; }
+  .tag-type{ background:rgba(46,111,242,0.1); color:var(--blue); }
+  .tag-loc{ background:rgba(138,147,168,0.12); color:var(--muted); }
+  .tag-pay{ background:rgba(245,166,35,0.12); color:#B87710; }
+  .job-row .bottom{ display:flex; justify-content:space-between; align-items:center; }
+  .posted{ font-size:0.78rem; color:var(--muted); }
+  .apply-btn{ background:var(--navy); color:#fff; font-size:0.84rem; font-weight:600; padding:9px 18px; border-radius:8px; transition:background 0.15s; }
+  .apply-btn:hover{ background:var(--blue); }
+
+  .pagination{ display:flex; justify-content:center; gap:8px; margin-top:36px; }
+  .pagination a{
+    width:38px; height:38px; border-radius:9px; border:1px solid var(--line-lt); display:flex; align-items:center; justify-content:center;
+    font-size:0.86rem; color:var(--ink); transition:background 0.15s, color 0.15s;
+  }
+  .pagination a.active, .pagination a:hover{ background:var(--blue); color:#fff; border-color:var(--blue); }
+
+  .form-section{ padding:70px 0; background:var(--card); border-top:1px solid var(--line-lt); }
+  .form-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:50px; align-items:start; }
+  @media(max-width:860px){ .form-grid{ grid-template-columns:1fr; } }
+  .form-side h2{ font-size:1.7rem; margin-bottom:14px; }
+  .form-side p{ color:var(--muted); font-size:0.94rem; max-width:380px; margin-bottom:22px; }
+  .form-side ul{ list-style:none; display:flex; flex-direction:column; gap:12px; }
+  .form-side li{ font-size:0.88rem; color:var(--ink); display:flex; gap:10px; }
+  .form-side li::before{ content:"✓"; color:var(--blue); font-weight:700; flex:none; }
+
+  .apply-form{ background:var(--bg); border:1px solid var(--line-lt); border-radius:16px; padding:32px; }
+  .field{ margin-bottom:18px; }
+  .field label{ display:block; font-size:0.8rem; color:var(--muted); margin-bottom:7px; font-weight:600; }
+  .field input, .field select, .field textarea{
+    width:100%; background:var(--card); border:1px solid var(--line-lt); color:var(--ink);
+    padding:12px 13px; border-radius:9px; font-family:'Inter'; font-size:0.92rem;
+  }
+  .field textarea{ resize:vertical; min-height:90px; }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media(max-width:520px){ .field-row{ grid-template-columns:1fr; } }
+  .file-drop{
+    border:1px dashed var(--line-lt); border-radius:10px; padding:20px; text-align:center;
+    color:var(--muted); font-size:0.85rem; cursor:pointer;
+  }
+  .file-drop:hover{ border-color:var(--blue-light); color:var(--blue); }
+  .form-submit-btn{
+    width:100%; background:var(--blue); color:#fff; font-weight:700; border:none;
+    padding:14px; border-radius:9px; font-size:0.95rem; cursor:pointer; margin-top:6px;
+    transition:background 0.15s;
+  }
+  .form-submit-btn:hover{ background:#255DE0; }
+
+  .cta-banner{
+    background:linear-gradient(120deg, var(--navy) 0%, #1A2A52 100%);
+    border-radius:20px; padding:48px 40px; margin:70px auto; max-width:1200px;
+    display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;
+  }
+  .cta-banner h3{ color:#fff; font-size:1.4rem; margin-bottom:8px; }
+  .cta-banner p{ color:#9AA3B5; font-size:0.92rem; }
+  .cta-banner .btn-solid{ padding:13px 26px; }
+
+  footer{ background:var(--navy); color:#C6CCDA; padding:64px 0 0; }
+  .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.1fr; gap:40px; padding-bottom:48px; border-bottom:1px solid var(--line); }
+  @media(max-width:820px){ .footer-grid{ grid-template-columns:1fr 1fr; row-gap:36px; } }
+  @media(max-width:520px){ .footer-grid{ grid-template-columns:1fr; } }
+  .footer-brand .brand{ margin-bottom:14px; }
+  .footer-grid p{ font-size:0.9rem; line-height:1.65; color:#9AA3B5; max-width:280px; margin-bottom:20px; }
+  .socials{ display:flex; gap:10px; }
+  .socials a{ width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:600; color:#fff; transition:background 0.15s, transform 0.15s; }
+  .socials a:hover{ background:var(--blue); transform:translateY(-2px); }
+  .footer-col h4{ font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#fff; margin-bottom:18px; }
+  .footer-col ul{ list-style:none; display:flex; flex-direction:column; gap:12px; }
+  .footer-col a{ font-size:0.9rem; color:#9AA3B5; transition:color 0.15s; }
+  .footer-col a:hover{ color:var(--blue-light); }
+  .footer-col .contact-item{ display:flex; gap:10px; font-size:0.9rem; color:#9AA3B5; margin-bottom:14px; }
+  .footer-col .contact-item .ic{ color:var(--blue-light); flex:none; }
+  .footer-bottom{ padding:22px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; font-size:0.82rem; color:#7C8598; }
+</style>
+</head>
+<body>
+
+<div id="mainPage">
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#" class="brand">
+        <span class="brand-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6V4.5A1.5 1.5 0 0 1 10.5 3h3A1.5 1.5 0 0 1 15 4.5V6" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><rect x="3" y="6" width="18" height="13" rx="2" stroke="#fff" stroke-width="1.8"/><path d="M3 12h18" stroke="#fff" stroke-width="1.8"/></svg></span>
+        Job Portal <span>Page</span>
+      </a>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#jobs">Find Jobs</a>
+        <a href="#">Employers</a>
+        <a href="#">Career Advice</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a href="loginpage.html" class="btn-ghost" onclick="showLogin(); return false;">Login</a>
+        <a href="#" class="btn-solid">Post a Job</a>
+      </div>
+      <div class="burger"><span></span><span></span><span></span></div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow"></span>
+    <h1>Find a job that <span>fits your path</span></h1>
+    <p>Search 1,200+ verified openings from companies actively hiring right now.</p>
+    <div class="search-card">
+      <input type="text" placeholder="Job title or keyword">
+      <select><option>All locations</option><option>Remote</option><option>Pune</option><option>Mumbai</option></select>
+      <button type="button">Search</button>
+    </div>
+    <div class="popular">Popular: <a href="#">Web Developer</a><a href="#">Data Entry</a><a href="#">Intern</a><a href="#">Remote</a></div>
+  </div>
+</section>
+
+<section class="categories">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Browse by category</h2>
+      <p>Jump straight to the roles you're aiming for.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card"><div class="cat-icon">💻</div><h4>Development</h4><span>340 jobs</span></div>
+      <div class="cat-card"><div class="cat-icon">🎨</div><h4>Design</h4><span>120 jobs</span></div>
+      <div class="cat-card"><div class="cat-icon">📊</div><h4>Data & Analytics</h4><span>95 jobs</span></div>
+      <div class="cat-card"><div class="cat-icon">📣</div><h4>Marketing</h4><span>140 jobs</span></div>
+      <div class="cat-card"><div class="cat-icon">🧾</div><h4>Data Entry</h4><span>210 jobs</span></div>
+      <div class="cat-card"><div class="cat-icon">🛠️</div><h4>Support</h4><span>88 jobs</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div><strong>1,240+</strong><span>Live openings</span></div>
+      <div><strong>380</strong><span>Hiring companies</span></div>
+      <div><strong>92%</strong><span>Profile match rate</span></div>
+      <div><strong>15 min</strong><span>Avg. apply time</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>How it works</h2>
+      <p>Four simple steps from sign-up to offer letter.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-card"><div class="how-num">1</div><h4>Create a profile</h4><p>Add your resume, skills and portfolio.</p></div>
+      <div class="how-card"><div class="how-num">2</div><h4>Search jobs</h4><p>Filter by role, location and pay.</p></div>
+      <div class="how-card"><div class="how-num">3</div><h4>Apply in one click</h4><p>Your profile goes straight to recruiters.</p></div>
+      <div class="how-card"><div class="how-num">4</div><h4>Track & get hired</h4><p>Follow every application's status.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="companies">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Companies hiring now</h2>
+      <p>A few of the teams actively recruiting on the platform.</p>
+    </div>
+    <div class="company-row">
+      <div class="company-chip">Nimbus</div>
+      <div class="company-chip">Verdant</div>
+      <div class="company-chip">Brightloop</div>
+      <div class="company-chip">Cortex</div>
+      <div class="company-chip">Skyline</div>
+    </div>
+  </div>
+</section>
+
+<section class="body-section" id="jobs">
+  <div class="wrap body-grid">
+    <aside class="filters">
+      <h3>Filters</h3>
+      <div class="filter-group">
+        <h4>Job type</h4>
+        <label><input type="checkbox" checked> Full-time</label>
+        <label><input type="checkbox"> Internship</label>
+        <label><input type="checkbox"> Part-time</label>
+        <label><input type="checkbox"> Contract</label>
+      </div>
+      <div class="filter-group">
+        <h4>Location</h4>
+        <label><input type="checkbox"> Remote</label>
+        <label><input type="checkbox" checked> Hybrid</label>
+        <label><input type="checkbox"> On-site</label>
+      </div>
+      <div class="filter-group">
+        <h4>Experience</h4>
+        <label><input type="checkbox"> Fresher</label>
+        <label><input type="checkbox" checked> 0–2 years</label>
+        <label><input type="checkbox"> 2–5 years</label>
+      </div>
+      <a href="#" class="clear-btn">Clear all filters</a>
+    </aside>
+
+    <div class="listings">
+      <div class="list-head">
+        <h2>1,240 jobs found</h2>
+        <span>Sort by <select class="sort-select"><option>Most recent</option><option>Highest pay</option></select></span>
+      </div>
+
+      <div class="job-list">
+        <div class="job-row">
+          <div class="job-logo">NS</div>
+          <div class="info">
+            <div class="top">
+              <div><h3>Frontend Developer Intern</h3><div class="co">Nimbus Softwares</div></div>
+              <span class="save-btn">♡</span>
+            </div>
+            <div class="job-meta"><span class="tag-type">Internship</span><span class="tag-loc">Remote</span><span class="tag-pay">₹12k/mo</span></div>
+            <div class="bottom"><span class="posted">Posted 2 days ago</span><a href="#" class="apply-btn">Apply now</a></div>
+          </div>
+        </div>
+
+        <div class="job-row">
+          <div class="job-logo">VA</div>
+          <div class="info">
+            <div class="top">
+              <div><h3>Data Entry Associate</h3><div class="co">Verdant Analytics</div></div>
+              <span class="save-btn">♡</span>
+            </div>
+            <div class="job-meta"><span class="tag-type">Full-time</span><span class="tag-loc">Nashik</span><span class="tag-pay">₹18k/mo</span></div>
+            <div class="bottom"><span class="posted">Posted 4 days ago</span><a href="#" class="apply-btn">Apply now</a></div>
+          </div>
+        </div>
+
+        <div class="job-row">
+          <div class="job-logo">BT</div>
+          <div class="info">
+            <div class="top">
+              <div><h3>Junior QA Tester</h3><div class="co">Brightloop Tech</div></div>
+              <span class="save-btn">♡</span>
+            </div>
+            <div class="job-meta"><span class="tag-type">Full-time</span><span class="tag-loc">Hybrid · Mumbai</span><span class="tag-pay">₹22k/mo</span></div>
+            <div class="bottom"><span class="posted">Posted 1 week ago</span><a href="#" class="apply-btn">Apply now</a></div>
+          </div>
+        </div>
+
+        <div class="job-row">
+          <div class="job-logo">CX</div>
+          <div class="info">
+            <div class="top">
+              <div><h3>Backend Developer</h3><div class="co">Cortex Systems</div></div>
+              <span class="save-btn">♡</span>
+            </div>
+            <div class="job-meta"><span class="tag-type">Full-time</span><span class="tag-loc">Remote</span><span class="tag-pay">₹35k/mo</span></div>
+            <div class="bottom"><span class="posted">Posted 1 week ago</span><a href="#" class="apply-btn">Apply now</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <a href="#" class="active">1</a><a href="#">2</a><a href="#">3</a><a href="#">→</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What our users say</h2>
+      <p>Real feedback from students and recruiters using the platform.</p>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p>"I built my profile in ten minutes and had two interviews lined up by the end of the week."</p>
+        <div class="test-person">
+          <div class="test-avatar">RP</div>
+          <div><h5>Riya Patil</h5><span>BCA Student</span></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p>"The filters made it easy to find remote internships that actually matched my skills."</p>
+        <div class="test-person">
+          <div class="test-avatar">AK</div>
+          <div><h5>Aman Kulkarni</h5><span>Job Seeker</span></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p>"We posted a role and had qualified candidates applying within a day. Very smooth process."</p>
+        <div class="test-person">
+          <div class="test-avatar">SN</div>
+          <div><h5>Sneha Nair</h5><span>HR, Brightloop Tech</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter">
+  <div class="wrap">
+    <h2>Never miss a new opening</h2>
+    <p>Get the best-matched jobs delivered to your inbox every week.</p>
+    <form class="newsletter-form">
+      <input type="email" placeholder="Enter your email">
+      <button type="button">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<section class="form-section" id="apply">
+  <div class="wrap form-grid">
+    <div class="form-side">
+      <h2>Create your profile</h2>
+      <p>One profile, every application. Fill this once and apply to jobs in a single click.</p>
+      <ul>
+        <li>Recruiters can find you by skill and location.</li>
+        <li>Upload your resume once, reuse it everywhere.</li>
+        <li>Get notified when a matching role opens.</li>
+      </ul>
+    </div>
+
+    <form class="apply-form">
+      <div class="field-row">
+        <div class="field">
+          <label for="fname">Full name</label>
+          <input id="fname" type="text" placeholder="Aarav Sharma">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="aarav@example.com">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input id="phone" type="tel" placeholder="+91 98765 43210">
+        </div>
+        <div class="field">
+          <label for="role">Preferred role</label>
+          <select id="role">
+            <option>Frontend Developer</option>
+            <option>Backend Developer</option>
+            <option>Data Entry</option>
+            <option>QA / Testing</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="skills">Key skills</label>
+        <input id="skills" type="text" placeholder="HTML, CSS, JavaScript, MySQL">
+      </div>
+
+      <div class="field">
+        <label for="about">About you</label>
+        <textarea id="about" placeholder="A short summary of your experience and goals"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Resume</label>
+        <div class="file-drop">Click to upload or drag your resume here (PDF)</div>
+      </div>
+
+      <button type="button" class="form-submit-btn">Submit application</button>
+    </form>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="cta-banner">
+    <div>
+      <h3>Are you hiring?</h3>
+      <p>Post a job and reach 1,200+ active candidates today.</p>
+    </div>
+    <a href="#" class="btn-solid">Post a Job</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="brand">
+          <span class="brand-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6V4.5A1.5 1.5 0 0 1 10.5 3h3A1.5 1.5 0 0 1 15 4.5V6" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><rect x="3" y="6" width="18" height="13" rx="2" stroke="#fff" stroke-width="1.8"/><path d="M3 12h18" stroke="#fff" stroke-width="1.8"/></svg></span>
+          Job Portal <span>Page</span>
+        </a>
+        <p>A student-built platform connecting job seekers with employers — search roles, build a profile, and track every application in one place.</p>
+        <div class="socials"><a href="#">in</a><a href="#">gh</a><a href="#">X</a><a href="#">f</a></div>
+      </div>
+      <div class="footer-col">
+        <h4>For Job Seekers</h4>
+        <ul><li><a href="#">Find Jobs</a></li><li><a href="#">Browse Companies</a></li><li><a href="#">Career Advice</a></li><li><a href="#">Build a Resume</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>For Employers</h4>
+        <ul><li><a href="#">Post a Job</a></li><li><a href="#">Search Candidates</a></li><li><a href="#">Pricing Plans</a></li><li><a href="#">Employer Resources</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="contact-item"><span class="ic">📍</span> 123 Education Tech Street</div>
+        <div class="contact-item"><span class="ic">📞</span> +1 234 356 7890</div>
+        <div class="contact-item"><span class="ic">✉️</span> info@jobportalpage.com</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Job Portal Page. All Rights Reserved.</span>
+      <span>BCA Semester-3 Heet Vadher</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
